@@ -13,17 +13,8 @@ k8s/temporal-%.yaml: docker-compose-%.yml
 create-network:
 	-docker network create temporal_network
 
-check:  ## checks the written code and prints any issues with it
-	docker-compose -p $(PROJECT) exec $(PROJECT) staticcheck ./... 
-
-build:	## builds development docker image.
-	docker-compose -p $(PROJECT) build $(c)
-	
 up:	create-network ## start the services in background
 	docker-compose -p $(PROJECT) up -d $(c)
-	
-restart:	## restarts service
-	docker-compose -p $(PROJECT) restart $(c)
 	
 logs:	## displays logs
 	docker-compose -p $(PROJECT) logs --tail=100 -f $(c)
